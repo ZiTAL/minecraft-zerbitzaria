@@ -1,1 +1,118 @@
 # minecraft-zerbitzaria
+
+# server
+**/etc/systemd/system/minecraft.service**
+```
+[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+WorkingDirectory=/home/projects/mc
+User=pi
+Group=pi
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/java -Xms1G -Xmx2G -jar /home/projects/mc/server.1.20.1.jar nogui
+
+[Install]
+WantedBy=multi-user.target
+```
+```
+systemctl enable minecraft.service
+systemctl start minecraft.service
+systemctl status minecraft.service
+
+```
+
+# bot
+```
+pip3 install -U Mastodon.py
+```
+
+**/etc/systemd/system/minecraft-bot.service**
+```
+[Unit]
+Description=Minecraft Server Bot
+After=network.target
+
+[Service]
+WorkingDirectory=/home/projects/mc/minecraft-zerbitzaria/scripts/bot
+User=pi
+Group=pi
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/python3 /home/projects/mc/minecraft-zerbitzaria/scripts/bot/bot.py
+
+[Install]
+WantedBy=multi-user.target
+```
+```
+systemctl enable minecraft-bot.service
+systemctl start minecraft-bot.service
+systemctl status minecraft-bot.service
+
+```
+
+# mastodonen kredentzialak lortzeko python script-a
+```
+from mastodon import Mastodon
+Mastodon.create_app('app_name', scopes=['read', 'write'], api_base_url="https://botsin.space")
+api = Mastodon("code01", "code02", api_base_url="https://botsin.space")
+api.log_in("email", "passwd", scopes=["read", "write"])
+```
+
+# web server
+
+**/etc/nginx/sites-enabled/mc.conf**
+```
+server {
+        include     /etc/nginx/vhost.conf.d/*.conf;
+
+        server_name mc.zital.freemyip.com mc.opi5;
+        root        /home/projects/mc/minecraft-zerbitzaria/scripts/server/;
+
+        error_log   /var/log/nginx/mc-error.log error;
+        access_log  /var/log/nginx/mc-access.log;
+
+        # PHP-FPM configuration
+        location ~ \.php$ {
+                fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+
+        location / {
+                index index.php;
+                try_files $uri $uri/ /index.php?$args;
+        }
+}
+```
+
+# Administratzaileak
+**/home/projects/mc/ops.json**
+```
+[
+  {
+    "uuid": "1234-1234-1234-1234-1234",
+    "name": "arkkuso",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "1234-1234-1234-1234-1234",
+    "name": "zitalko",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  }
+]
+
+```
+
+# Jokoan bertan
+
+Edonok lo eginez eguna egiteko aukera:
+```
+/gamerule playersSleepingPercentage 0
+```
