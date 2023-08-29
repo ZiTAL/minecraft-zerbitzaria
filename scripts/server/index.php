@@ -1,5 +1,5 @@
 <?php
-$file_name = __DIR__."/../../logs/latest.log";
+$file_name = __DIR__."/../../../logs/latest.log";
 $f_mod     = date('Y-m-d H:i:s', filemtime($file_name));
 $log_file  = file_get_contents($file_name);
 $lines     = preg_split("/\n/", $log_file);

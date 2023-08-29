@@ -1,11 +1,11 @@
-import os, sys
+import sys
 import subprocess
 import re
 from   time     import time
 from   mastodon import Mastodon
 
-dir  = os.path.dirname(os.path.abspath(__file__))
-file = dir + "/../../logs/latest2.log"
+dir  = sys.path[0]
+file = dir + "/../../../logs/latest2.log"
 wait = 1
 
 def readLog(filename):
