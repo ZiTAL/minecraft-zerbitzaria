@@ -4,8 +4,7 @@ import re
 from   time     import time
 from   mastodon import Mastodon
 
-dir  = sys.path[0]
-file = dir + "/../../../logs/latest2.log"
+file = sys.path[0] + "/../../../logs/latest.log"
 wait = 1
 
 def readLog(filename):
