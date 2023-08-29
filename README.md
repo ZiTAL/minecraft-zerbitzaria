@@ -1,5 +1,17 @@
 # minecraft-zerbitzaria
 
+# download
+```
+mkdir /home/projects/mc
+cd /home/projects/mc
+wget https://piston-data.mojang.com/v1/objects/84194a2f286ef7c14ed7ce0090dba59902951553/server.jar
+mv server.jar server.1.20.1.jar
+```
+
+```
+apt-get install openjdk-19-jre-headless
+```
+
 # server
 **/etc/systemd/system/minecraft.service**
 ```
