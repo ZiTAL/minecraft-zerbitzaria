@@ -9,6 +9,7 @@ import subprocess
 import re
 from   time     import time
 from   mastodon import Mastodon
+from   telegram import Bot
 
 file = sys.path[0] + "/../../../logs/latest.log"
 wait = 1
@@ -60,6 +61,16 @@ def masto(msg):
     mastodon.status_post(msg, visibility='public')
 
 def tele(msg):
+    token   = readFile(sys.path[0]+"/telegram.credentials")
+    channel = readFile(sys.path[0]+"/telegram.channel")
+    bot     = Bot(token=token)
+    bot.send_message(chat_id=channel, text=msg)
+
+def readFile(path):
+    with open(path, 'r') as file:
+        content = file.read()
+    return content
     
 
-readLog(file)
+#readLog(file)
+tele('adasd')
