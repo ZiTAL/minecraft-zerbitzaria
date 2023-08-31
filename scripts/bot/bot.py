@@ -9,7 +9,7 @@ wait = 1
 
 def readLog(filename):
     start_time   = int(time())
-    tail_process = subprocess.Popen(["tail", "-f", filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    tail_process = subprocess.Popen(["tail", "-F", filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     try:
         start_reading = False
