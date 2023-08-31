@@ -76,4 +76,4 @@ def readFile(path):
         content = file.read()
     return content
 
-readLog(file)        
+readLog(file)
