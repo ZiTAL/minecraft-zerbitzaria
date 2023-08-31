@@ -4,6 +4,10 @@ mc.zital.freemyip.com
 
 https://mc.zital.freemyip.com
 
+**@EuskalMinecraftZerbitzaria** (telegram)
+
+**https://mastodon.eus/@zitalbot@botsin.space** (mastodon)
+
 # minecraft bezeroa instalatzeko gida
 
 https://peertube.eus/w/cinFjM6vWB5LgEJbcomjND
