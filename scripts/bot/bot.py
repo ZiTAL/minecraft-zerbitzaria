@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# pip3 install -U Mastodon.py
+# pip3 install -U python-telegram-bot
+
 import sys
 import subprocess
 import re
@@ -43,6 +49,7 @@ def processMessage(line):
             msg = user+" zerbitzaritik deskonetatu da :("
 
         masto(msg)
+        tele(msg)
 
 def masto(msg):
     mastodon = Mastodon(
@@ -51,5 +58,8 @@ def masto(msg):
     )
     msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
     mastodon.status_post(msg, visibility='public')
+
+def tele(msg):
+    
 
 readLog(file)
