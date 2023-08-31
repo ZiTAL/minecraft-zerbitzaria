@@ -49,15 +49,14 @@ def processMessage(line):
         elif(type=='left'):
             msg = user+" zerbitzaritik deskonetatu da :("
 
-        masto(msg)
-        tele(msg)
+        msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
+        publish(msg)
 
 def masto(msg):
     mastodon = Mastodon(
         access_token = sys.path[0]+"/mastodon.credentials",
         api_base_url = 'https://botsin.space'
     )
-    msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
     mastodon.status_post(msg, visibility='public')
 
 def tele(msg):
@@ -65,6 +64,10 @@ def tele(msg):
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
     bot     = Bot(token=token)
     bot.send_message(chat_id=channel, text=msg)
+
+def publish(msg):
+    masto(msg)
+    tele(msg)
 
 def readFile(path):
     with open(path, 'r') as file:
