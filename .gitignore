@@ -1,2 +1,3 @@
 scripts/bot/mastodon.credentials
 scripts/bot/telegram.credentials
+scripts/bot/telegram.channel
