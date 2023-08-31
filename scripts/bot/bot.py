@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 # pip3 install -U Mastodon.py
-# pip3 install -U python-telegram-bot
+# pip3 install -U requests
 
 import sys
 import subprocess
 import re
+import requests
 from   time     import time
 from   mastodon import Mastodon
-from   telegram import Bot
 
 file = sys.path[0] + "/../../../logs/latest.log"
 wait = 1
@@ -62,8 +62,10 @@ def masto(msg):
 def tele(msg):
     token   = readFile(sys.path[0]+"/telegram.credentials").strip()
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
-    bot     = Bot(token=token)
-    bot.send_message(chat_id=channel, text=msg)
+    requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
+      "chat_id": channel,
+      "text": msg
+    })
 
 def publish(msg):
     masto(msg)
@@ -73,7 +75,5 @@ def readFile(path):
     with open(path, 'r') as file:
         content = file.read()
     return content
-    
 
-#readLog(file)
-tele('adasd')
+readLog(file)        
