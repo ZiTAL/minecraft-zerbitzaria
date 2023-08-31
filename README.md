@@ -1,4 +1,12 @@
-# minecraft-zerbitzaria
+# minecraft zerbitzaria
+
+mc.zital.freeemyip.com
+
+https://mc.zital.freeemyip.com
+
+# minecraft bezeroa instalatzeko gida
+
+https://peertube.eus/w/cinFjM6vWB5LgEJbcomjND
 
 # download
 ```
@@ -73,6 +81,22 @@ Mastodon.create_app('app_name', scopes=['read', 'write'], api_base_url="https://
 api = Mastodon("code01", "code02", api_base_url="https://botsin.space")
 api.log_in("email", "passwd", scopes=["read", "write"])
 ```
+
+# telegram bot-a sortzeko gida
+
+https://www.teleme.io/articles/create_your_own_telegram_bot?hl=en
+
+# telegram kanala sortzeko gida
+
+https://techpp.com/2022/01/08/how-to-create-telegram-channel-guide/
+
+# telegram kanalaren ID-a lortzeko gida
+
+**@getidsbot** telegram erabiltzaileari birbidali beharko diozu zure kanaleko mezuren bat
+
+**Kanala sortzean aurretiz sortu dugun BOT-a sartu beharko dugu Admin modura.**
+
+Behin hauek biak sortu eta gero **telegram.credentials** fitxategian API-aren TOKEN-a sartuko dugu, eta **telegram.channel** fitxategian kanalaren ID-a sortuko dugu "-" aurrizkiarekin, adibidez: **-1234567890123**
 
 # web server
 
