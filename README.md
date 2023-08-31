@@ -1,8 +1,8 @@
 # minecraft zerbitzaria
 
-mc.zital.freeemyip.com
+mc.zital.freemyip.com
 
-https://mc.zital.freeemyip.com
+https://mc.zital.freemyip.com
 
 # minecraft bezeroa instalatzeko gida
 
