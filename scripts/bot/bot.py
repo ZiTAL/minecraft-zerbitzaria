@@ -61,8 +61,8 @@ def masto(msg):
     mastodon.status_post(msg, visibility='public')
 
 def tele(msg):
-    token   = readFile(sys.path[0]+"/telegram.credentials")
-    channel = readFile(sys.path[0]+"/telegram.channel")
+    token   = readFile(sys.path[0]+"/telegram.credentials").strip()
+    channel = readFile(sys.path[0]+"/telegram.channel").strip()
     bot     = Bot(token=token)
     bot.send_message(chat_id=channel, text=msg)
 
