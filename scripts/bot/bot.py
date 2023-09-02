@@ -49,10 +49,10 @@ def processMessage(line):
         elif(type=='left'):
             msg = user+" zerbitzaritik deskonetatu da :("
 
-        msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
         publish(msg)
 
 def masto(msg):
+    msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
     mastodon = Mastodon(
         access_token = sys.path[0]+"/mastodon.credentials",
         api_base_url = 'https://botsin.space'
