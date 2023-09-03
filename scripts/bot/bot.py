@@ -43,7 +43,7 @@ def processMessage(line):
     m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+\[floodgate\]", line, re.IGNORECASE)
     if(m):
         pass
-    elif:
+    else:
         m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(joined|left)", line, re.IGNORECASE)
         if(m):
             user = m.group(1)
