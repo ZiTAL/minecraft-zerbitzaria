@@ -39,17 +39,22 @@ def readLog(filename):
 def processMessage(line):
     # [16:11:29] [Server thread/INFO]: arkkuso joined the game
     # [16:11:29] [Server thread/INFO]: arkkuso left the game
-    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(joined|left)", line, re.IGNORECASE)
-    if(m):
-        user = m.group(1)
-        type = m.group(2)
+    # [23:44:33] [Server thread/INFO]: [floodgate] Floodgate player logged in as .zitalko joined (UUID: 00000000-0000-0000-0000-000000000000)
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+\[floodgate\]", line, re.IGNORECASE)
+    if(m)
+        pass
+    elif:
+        m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(joined|left)", line, re.IGNORECASE)
+        if(m):
+            user = m.group(1)
+            type = m.group(2)
 
-        if(type=='joined'):
-            msg = user+" zerbitzarira konetatu da! :)"
-        elif(type=='left'):
-            msg = user+" zerbitzaritik deskonetatu da :("
+            if(type=='joined'):
+                msg = user+" zerbitzarira konetatu da! :)"
+            elif(type=='left'):
+                msg = user+" zerbitzaritik deskonetatu da :("
 
-        publish(msg)
+            publish(msg)
 
 def masto(msg):
     msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
