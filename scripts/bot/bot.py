@@ -89,7 +89,7 @@ def masto(user, msg):
     mastodon.status_post(msg, visibility='public')
 
 def tele(user, msg):
-    msg     = "**"+user+"**"+msg
+    msg     = "\*"+user+"*"+msg
     token   = readFile(sys.path[0]+"/telegram.credentials").strip()
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
     requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
