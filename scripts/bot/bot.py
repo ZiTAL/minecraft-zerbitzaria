@@ -50,21 +50,22 @@ def processMessage(line):
             type = m.group(2)
 
             if(type=='joined'):
-                msg = user+" zerbitzarira konetatu da! :)"
+                msg = " zerbitzarira konektatu da!"
             elif(type=='left'):
-                msg = user+" zerbitzaritik deskonetatu da :("
+                msg = " zerbitzaritik deskonektatu da..."
 
-            publish(msg)
+            publish(user, msg)
 
-def masto(msg):
-    msg = msg + "\n#minecraft\nmc.zital.freemyip.com"
+def masto(user, msg):
+    msg = user + msg + "\n#minecraft\nmc.zital.freemyip.com"
     mastodon = Mastodon(
         access_token = sys.path[0]+"/mastodon.credentials",
         api_base_url = 'https://botsin.space'
     )
     mastodon.status_post(msg, visibility='public')
 
-def tele(msg):
+def tele(user, msg):
+    msg     = "**"+user+"**"+msg
     token   = readFile(sys.path[0]+"/telegram.credentials").strip()
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
     requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
@@ -72,9 +73,9 @@ def tele(msg):
       "text": msg
     })
 
-def publish(msg):
-    masto(msg)
-    tele(msg)
+def publish(user, msg):
+    masto(user, msg)
+    tele(user, msg)
 
 def readFile(path):
     with open(path, 'r') as file:
