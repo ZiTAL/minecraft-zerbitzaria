@@ -95,7 +95,7 @@ def tele(user, msg):
     requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
       "chat_id":    channel,
       "text":       msg,
-      "parse_mode": 'Markdown'
+      "parse_mode": 'MarkdownV2'
     })
 
 def publish(user, msg):
