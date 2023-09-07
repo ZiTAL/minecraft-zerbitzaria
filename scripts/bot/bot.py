@@ -80,8 +80,9 @@ def tele(user, msg):
     token   = readFile(sys.path[0]+"/telegram.credentials").strip()
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
     requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
-      "chat_id": channel,
-      "text": msg
+      "chat_id":    channel,
+      "text":       msg,
+      "parse_mode": 'Markdown'
     })
 
 def publish(user, msg):
