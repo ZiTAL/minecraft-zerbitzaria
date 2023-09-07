@@ -40,6 +40,9 @@ def processMessage(line):
     # [16:11:29] [Server thread/INFO]: arkkuso joined the game
     # [16:11:29] [Server thread/INFO]: arkkuso left the game
     # [23:44:33] [Server thread/INFO]: [floodgate] Floodgate player logged in as .zitalko joined (UUID: 00000000-0000-0000-0000-000000000000)
+    user = None
+    msg  = None
+
     m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+\[floodgate\]", line, re.IGNORECASE)
     if(m):
         pass
@@ -53,8 +56,16 @@ def processMessage(line):
                 msg = " zerbitzarira konektatu da!"
             elif(type=='left'):
                 msg = " zerbitzaritik deskonektatu da..."
+        else:
+            # [12:31:45] [Server thread/INFO]: .ARRUARTEGAMER was slain by Zombie
+            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(was slain by)\s+(.*?)", line, re.IGNORECASE)
+            if(m):
+                user = m.group(1)
+                enem = m.group(2)
+                msg  = ", "+enem+" batek erahil du!"
 
-            publish(user, msg)
+    if(user is not None and msg is not None):
+        publish(user, msg)
 
 def masto(user, msg):
     msg = user + msg + "\n#minecraft\nmc.zital.freemyip.com"
