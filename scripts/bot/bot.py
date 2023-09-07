@@ -63,6 +63,19 @@ def processMessage(line):
                 user = m.group(1)
                 enem = m.group(2)
                 msg  = ", "+enem+" batek erahil du!"
+            else:
+                # [12:35:32] [Server thread/INFO]: .ARRUARTEGAMER fell from a high place
+                m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+fell from a high place", line, re.IGNORECASE)
+                if(m):
+                    user = m.group(1)
+                    msg  = " leku altu batetik erori da, eta kriston zartakoa hartu du!"
+                else:
+                    # [12:41:43] [Server thread/INFO]: .ARRUARTEGAMER has made the advancement [Suit Up]
+                    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+has made the advancement \[(.*?)\]", line, re.IGNORECASE)
+                    if(m):
+                        user = m.group(1)
+                        adva =  m.group(2)
+                        msg  = "-(e)k "+adva+" aurrerapena lortu du!"
 
     if(user is not None and msg is not None):
         publish(user, msg)
