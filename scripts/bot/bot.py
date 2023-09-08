@@ -58,10 +58,10 @@ def processMessage(line):
                 msg = " zerbitzaritik deskonektatu da..."
         else:
             # [12:31:45] [Server thread/INFO]: .ARRUARTEGAMER was slain by Zombie
-            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(was slain by)\s+(.*?)", line, re.IGNORECASE)
+            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(was slain by)\s+(.*?)\s*$", line, re.IGNORECASE)
             if(m):
                 user = m.group(1)
-                enem = m.group(2)
+                enem = m.group(3)
                 msg  = ", "+enem+" batek erahil du!"
             else:
                 # [12:35:32] [Server thread/INFO]: .ARRUARTEGAMER fell from a high place
