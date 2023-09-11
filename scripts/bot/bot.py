@@ -76,6 +76,13 @@ def processMessage(line):
                         user = m.group(1)
                         adva =  m.group(2)
                         msg  = "-(e)k "+adva+" aurrerapena lortu du!"
+                    else:
+                        # [19:09:28] [Server thread/INFO]: ARRUARTE was shot by Pillager
+                        m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was shot by\s+(.*?)$", line, re.IGNORECASE)
+                        if(m):
+                            user = m.group(1)
+                            enem =  m.group(2)
+                            msg  = "-(e)ri "+enem+"-(e)k tiroa eman dio!"
 
     if(user is not None and msg is not None):
         publish(user, msg)
