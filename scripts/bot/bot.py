@@ -83,6 +83,20 @@ def processMessage(line):
                             user = m.group(1)
                             enem =  m.group(2)
                             msg  = "-(e)ri "+enem+"-(e)k tiroa eman dio!"
+                        else:
+                            # [16:09:50] [Server thread/INFO]: .Dariusin16 tried to swim in lava
+                            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+tried to swim in lava$", line, re.IGNORECASE)
+                            if(m):
+                                user = m.group(1)
+                                enem =  m.group(2)
+                                msg  = " laban igeri egiten saiatu da..."
+                            else:
+                                # [16:06:22] [Server thread/INFO]: .Dariusin16 was doomed to fall by Enderman
+                                m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was doomed to fall by\s+(.*?)$", line, re.IGNORECASE)                                
+                                if(m):
+                                    user = m.group(1)
+                                    enem =  m.group(2)
+                                    msg  = " erortzera kondenatu zuen "+enem+"-(e)k"
 
     if(user is not None and msg is not None):
         publish(user, msg)
