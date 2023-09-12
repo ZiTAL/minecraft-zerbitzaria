@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from sys      import path
+from datetime import datetime
+import subprocess
+
+date = datetime.now().strftime("%Y-%m-%d")
+
+files = [
+    'bermio',
+    'bermio_nether',
+    'bermio_the_end',
+    'world',
+    'world_nether',
+    'world_the_end'
+]
+
+dir = path[0] + "/../../../"
+
+for i in range(len(files)):
+    files[i] = dir + files[i]
+
+dir     = path[0] + "/../../backup/"+date
+command = "mkdir -p "+dir
+
+result  = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+for i in range(len(files)):
+    command = "cp -R "+files[i]+" "+dir
+    result  = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
