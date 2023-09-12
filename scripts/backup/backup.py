@@ -32,7 +32,7 @@ for i in range(len(files)):
     result  = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 dir     = dir + "/../"
-folders = [f for f in os.listdir(dir) if os.path.isdir(os.path.join(dir, f))]
+folders = [os.path.join(dir, f) for f in os.listdir(dir) if os.path.isdir(os.path.join(dir, f))]
 
 print(folders)
 
