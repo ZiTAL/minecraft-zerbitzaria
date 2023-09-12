@@ -35,5 +35,6 @@ dir     = dir + "/../"
 folders = [os.path.join(dir, f) for f in os.listdir(dir) if os.path.isdir(os.path.join(dir, f))]
 folders.sort(key=lambda x: os.path.getmtime(x), reverse=True)
 
-print(folders)
+remove_folders = folders[15:]
+print(remove_folders)
 
