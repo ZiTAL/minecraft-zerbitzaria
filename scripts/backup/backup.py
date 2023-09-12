@@ -37,4 +37,5 @@ folders.sort(key=lambda x: os.path.getmtime(x), reverse=True)
 
 remove_folders = folders[15:]
 for i in range(len(remove_folders)):
-    print(remove_folders[i])
+    command = "rm -rf "+remove_folders[i]
+    result  = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
