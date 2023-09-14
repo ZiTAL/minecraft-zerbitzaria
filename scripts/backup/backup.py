@@ -6,6 +6,9 @@ import subprocess
 import os
 from datetime import datetime
 
+def _exec(command):
+    subprocess.run(str(command), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
 date = datetime.now().strftime("%Y-%m-%d")
 
 # backup-ak egiteko munduak
@@ -26,12 +29,12 @@ for i in range(len(files)):
 # backup-aren karpeta sortu
 dir     = sys.path[0] + "/../../backup/"+date
 command = 'mkdir -p "'+dir+'"'
-exec(command)
+_exec(command)
 
 # backup-ak egin
 for i in range(len(files)):
     command = 'cp -R "'+files[i]+'" "'+dir+'"'
-    exec(command)
+    _exec(command)
 
 # backup-en zerrenda lortu
 dir     = dir + "/../"
@@ -42,7 +45,4 @@ folders.sort(key=lambda x: os.path.getmtime(x), reverse=True)
 remove_folders = folders[15:]
 for i in range(len(remove_folders)):
     command = 'rm -rf "'+remove_folders[i]+'"'
-    exec(command)
-
-def exec(command):
-    subprocess.run(str(command), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    _exec(command)
