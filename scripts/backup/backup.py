@@ -45,4 +45,4 @@ for i in range(len(remove_folders)):
     exec(command)
 
 def exec(command):
-    subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    subprocess.run(str(command), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
