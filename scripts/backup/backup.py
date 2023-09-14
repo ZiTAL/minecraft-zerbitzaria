@@ -25,12 +25,12 @@ for i in range(len(files)):
 
 # backup-aren karpeta sortu
 dir     = sys.path[0] + "/../../backup/"+date
-command = "mkdir -p "+dir
+command = 'mkdir -p "'+dir+'"'
 exec(command)
 
 # backup-ak egin
 for i in range(len(files)):
-    command = "cp -R "+files[i]+" "+dir
+    command = 'cp -R "'+files[i]+'" "'+dir+'"'
     exec(command)
 
 # backup-en zerrenda lortu
@@ -41,7 +41,7 @@ folders.sort(key=lambda x: os.path.getmtime(x), reverse=True)
 # azken 15 backup-ak bakarrik utzi
 remove_folders = folders[15:]
 for i in range(len(remove_folders)):
-    command = "rm -rf "+remove_folders[i]
+    command = 'rm -rf "'+remove_folders[i]+'"'
     exec(command)
 
 def exec(command):
