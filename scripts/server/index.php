@@ -8,7 +8,8 @@ $log       = '';
 foreach($lines as $line)
 {
     if(preg_match("/UUID/i", $line))
-        $line = preg_replace("/([a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-)[a-z0-9]+/i", '$2************', $line);
+        $line = preg_replace("/([a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-)[a-z0-9]+/i", '$1************', $line);
+    $line = preg_replace("/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\.:[0-9]+/", '*.*.*.*.:*', $line);
     $log .= "{$line}\n";
 }
 
