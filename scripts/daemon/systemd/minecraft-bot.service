@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft Server Bot
+After=network.target
+
+[Service]
+WorkingDirectory=/home/projects/mc/minecraft-zerbitzaria/scripts/bot
+User=pi
+Group=pi
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/python3 /home/projects/mc/minecraft-zerbitzaria/scripts/bot/bot.py
+
+[Install]
+WantedBy=multi-user.target

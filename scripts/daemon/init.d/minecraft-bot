@@ -1,0 +1,23 @@
+#!/bin/sh
+
+DAEMON="systemctl"
+NAME="minecraft-bot"
+
+case "$1" in
+    start)
+        $DAEMON start $NAME
+        ;;
+    stop)
+        $DAEMON stop $NAME
+        ;;
+    restart)
+        $DAEMON restart $NAME
+        ;;
+    status)
+        $DAEMON status $NAME
+        ;;
+    *)
+        echo "Usage: $NAME {start|stop|restart|status}" >&2
+        exit 3
+        ;;
+esac
