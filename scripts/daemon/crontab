@@ -1,0 +1,2 @@
+# minecraft
+0 4 * * * /usr/bin/python3 /home/projects/mc/minecraft-zerbitzaria/scripts/backup/backup.py >> /dev/null 2>> /home/projects/mc/minecraft-zerbitzaria/scripts/backup/backup.log
