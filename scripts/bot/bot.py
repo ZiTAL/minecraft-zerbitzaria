@@ -37,69 +37,79 @@ def readLog(filename):
         tail_process.terminate()
 
 def processMessage(line):
-    # [16:11:29] [Server thread/INFO]: arkkuso joined the game
-    # [16:11:29] [Server thread/INFO]: arkkuso left the game
-    # [23:44:33] [Server thread/INFO]: [floodgate] Floodgate player logged in as .zitalko joined (UUID: 00000000-0000-0000-0000-000000000000)
-    user = None
-    msg  = None
 
+    # [23:44:33] [Server thread/INFO]: [floodgate] Floodgate player logged in as .zitalko joined (UUID: 00000000-0000-0000-0000-000000000000)
     m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+\[floodgate\]", line, re.IGNORECASE)
     if(m):
-        pass
-    else:
-        m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(joined|left)", line, re.IGNORECASE)
-        if(m):
-            user = m.group(1)
-            type = m.group(2)
+        return False
 
-            if(type=='joined'):
-                msg = " zerbitzarira konektatu da!"
-            elif(type=='left'):
-                msg = " zerbitzaritik deskonektatu da..."
-        else:
-            # [12:31:45] [Server thread/INFO]: .ARRUARTEGAMER was slain by Zombie
-            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(was slain by)\s+(.*?)\s*$", line, re.IGNORECASE)
-            if(m):
-                user = m.group(1)
-                enem = m.group(3)
-                msg  = ", "+enem+" batek erahil du!"
-            else:
-                # [12:35:32] [Server thread/INFO]: .ARRUARTEGAMER fell from a high place
-                m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+fell from a high place", line, re.IGNORECASE)
-                if(m):
-                    user = m.group(1)
-                    msg  = " leku altu batetik erori da, eta kriston zartakoa hartu du!"
-                else:
-                    # [12:41:43] [Server thread/INFO]: .ARRUARTEGAMER has made the advancement [Suit Up]
-                    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+has made the advancement \[(.*?)\]", line, re.IGNORECASE)
-                    if(m):
-                        user = m.group(1)
-                        adva =  m.group(2)
-                        msg  = "-(e)k "+adva+" aurrerapena lortu du!"
-                    else:
-                        # [19:09:28] [Server thread/INFO]: ARRUARTE was shot by Pillager
-                        m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was shot by\s+(.*?)$", line, re.IGNORECASE)
-                        if(m):
-                            user = m.group(1)
-                            enem =  m.group(2)
-                            msg  = "-(e)ri "+enem+"-(e)k tiroa eman dio!"
-                        else:
-                            # [16:09:50] [Server thread/INFO]: .Dariusin16 tried to swim in lava
-                            m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+tried to swim in lava$", line, re.IGNORECASE)
-                            if(m):
-                                user = m.group(1)
-                                enem =  m.group(2)
-                                msg  = " laban igeri egiten saiatu da..."
-                            else:
-                                # [16:06:22] [Server thread/INFO]: .Dariusin16 was doomed to fall by Enderman
-                                m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was doomed to fall by\s+(.*?)$", line, re.IGNORECASE)                                
-                                if(m):
-                                    user = m.group(1)
-                                    enem =  m.group(2)
-                                    msg  = " erortzera kondenatu zuen "+enem+"-(e)k"
+    # [16:11:29] [Server thread/INFO]: arkkuso joined the game
+    # [16:11:29] [Server thread/INFO]: arkkuso left the game
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(joined|left)", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        type = m.group(2)
 
-    if(user is not None and msg is not None):
+        if(type=='joined'):
+            msg = " zerbitzarira konektatu da!"
+        elif(type=='left'):
+            msg = " zerbitzaritik deskonektatu da..."
+
         publish(user, msg)
+        return True
+
+    # [12:31:45] [Server thread/INFO]: .ARRUARTEGAMER was slain by Zombie
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+(was slain by)\s+(.*?)\s*$", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        enem = m.group(3)
+        msg  = ", "+enem+" batek erahil du!"
+        publish(user, msg)
+        return True
+
+    # [12:35:32] [Server thread/INFO]: .ARRUARTEGAMER fell from a high place
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+fell from a high place", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        msg  = " leku altu batetik erori da, eta kriston zartakoa hartu du!"
+        publish(user, msg)
+        return True        
+    
+    # [12:41:43] [Server thread/INFO]: .ARRUARTEGAMER has made the advancement [Suit Up]
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+has made the advancement \[(.*?)\]", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        adva = m.group(2)
+        msg  = "-(e)k "+adva+" aurrerapena lortu du!"
+        publish(user, msg)
+        return True
+        
+    # [19:09:28] [Server thread/INFO]: ARRUARTE was shot by Pillager
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was shot by\s+(.*?)$", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        enem = m.group(2)
+        msg  = "-(e)ri "+enem+"-(e)k tiroa eman dio!"
+        publish(user, msg)
+        return True
+
+    # [16:09:50] [Server thread/INFO]: .Dariusin16 tried to swim in lava
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+tried to swim in lava$", line, re.IGNORECASE)
+    if(m):
+        user = m.group(1)
+        enem = m.group(2)
+        msg  = " laban igeri egiten saiatu da..."
+        publish(user, msg)
+        return True
+
+    # [16:06:22] [Server thread/INFO]: .Dariusin16 was doomed to fall by Enderman
+    m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+(.*?)\s+was doomed to fall by\s+(.*?)$", line, re.IGNORECASE)                                
+    if(m):
+        user = m.group(1)
+        enem = m.group(2)
+        msg  = " erortzera kondenatu zuen "+enem+"-(e)k"
+        publish(user, msg)
+        return True
 
 def masto(user, msg):
     msg = user + msg + "\n#minecraft\nmc.zital.freemyip.com"
