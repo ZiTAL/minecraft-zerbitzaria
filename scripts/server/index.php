@@ -7,8 +7,8 @@ $log       = '';
 
 foreach($lines as $line)
 {
-    $line = preg_replace("/UUID of player (.*?) is ([a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-)[a-z0-9]+/i", 'UUID of player $1 is $2************', $line);
-    $line = preg_replace("/(.*?)(\[\/[0-9]+\.[0-9]+\.[0-9]+\.)[0-9]+(:[0-9]+\])/", '$1$2***$3', $line);
+    if(preg_match("/UUID/i", $line))
+        $line = preg_replace("/([a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-[a-z0-9]+\-)[a-z0-9]+/i", '$2************', $line);
     $log .= "{$line}\n";
 }
 
