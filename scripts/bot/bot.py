@@ -112,7 +112,7 @@ def processMessage(line):
         return True
 
 def masto(user, msg):
-    msg = user + msg + "\n#minecraft\nmc.zital.freemyip.com"
+    msg = user + msg + "\n#minecraft\nmc.zital.eus"
     mastodon = Mastodon(
         access_token = sys.path[0]+"/mastodon.credentials",
         api_base_url = 'https://botsin.space'

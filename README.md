@@ -1,8 +1,8 @@
 # minecraft zerbitzaria
 
-mc.zital.freemyip.com
+mc.zital.eus
 
-https://mc.zital.freemyip.com
+https://mc.zital.eus
 
 **@EuskalMinecraftZerbitzaria** (telegram)
 
