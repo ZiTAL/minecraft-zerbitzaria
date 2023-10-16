@@ -110,6 +110,9 @@ def processMessage(line):
         msg  = " erortzera kondenatu zuen "+enem+"-(e)k"
         publish(user, msg)
         return True
+    
+def prepareUser(user):
+    return re.sub(r'^\.+', r'', user)
 
 def masto(user, msg):
     msg = user + msg + "\n#minecraft\nmc.zital.eus"
@@ -130,6 +133,7 @@ def tele(user, msg):
     })
 
 def publish(user, msg):
+    user = prepareUser(user)
     masto(user, msg)
     tele(user, msg)
 
