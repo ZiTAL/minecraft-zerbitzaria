@@ -123,7 +123,7 @@ def masto(user, msg):
     mastodon.status_post(msg, visibility='public')
 
 def tele(user, msg):
-    msg     = teleMd("*"+user+"*"+msg)
+    msg     = mdEscapeSpecialChars("*"+user+"*"+msg)
     token   = readFile(sys.path[0]+"/telegram.credentials").strip()
     channel = readFile(sys.path[0]+"/telegram.channel").strip()
     requests.get("https://api.telegram.org/bot"+token+"/sendMessage", params={
@@ -132,13 +132,12 @@ def tele(user, msg):
       "parse_mode": 'MarkdownV2'
     })
 
-def teleMd(msg):
-    msg = re.sub(r'\.', '\\.', msg)
-    msg = re.sub(r'\!', '\\!', msg)
-    msg = re.sub(r'\(', '\\(', msg)
-    msg = re.sub(r'\)', '\\)', msg)
-    msg = re.sub(r'\-', '\\-)', msg)
-    return msg
+def mdEscapeSpecialChars(msg):
+    special  = r'_*[]()~`>#+-=|{}.!'
+    pattern  = r'([' + re.escape(special) + '])'
+    replacer = lambda match: '\\' + match.group(1)
+    output   = re.sub(pattern, replacer, msg)
+    return output
 
 def publish(user, msg):
     user = prepareUser(user)
