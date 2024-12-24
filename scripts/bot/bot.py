@@ -37,6 +37,8 @@ def readLog(filename):
         tail_process.terminate()
 
 def processMessage(line):
+    print("processMessage")
+    print(line)
 
     # [23:44:33] [Server thread/INFO]: [floodgate] Floodgate player logged in as .zitalko joined (UUID: 00000000-0000-0000-0000-000000000000)
     m = re.search(r"^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\]\s+\[Server\sthread\/INFO\]:\s+\[floodgate\]", line, re.IGNORECASE)
@@ -118,7 +120,7 @@ def masto(user, msg):
     msg = user + msg + "\n#minecraft\nmc.zital.eus"
     mastodon = Mastodon(
         access_token = sys.path[0]+"/mastodon.credentials",
-        api_base_url = 'https://botsin.space'
+        api_base_url = 'https://mastodon.eus'
     )
     mastodon.status_post(msg, visibility='public')
 
